@@ -8,12 +8,14 @@ Dir["./app/models/*.rb"].each {|file| require file }
 Dir["./app/services/**/*.rb"].each {|file| require file }
 
 class App < Sinatra::Base
+
   get '/sinatra' do
     'Hello world Sinatra!'   
   end
 
   post '/webhook' do
-    result = JSON.parse(request.body.read)["result"]
+    request.body.rewind
+    result = JSON.parse(request.body.read)["queryResult"]
 
     if result["contexts"].present?
       response = InterpretService.call(result["action"], result["contexts"][0]["parameters"])
@@ -23,9 +25,7 @@ class App < Sinatra::Base
 
     content_type :json
     {
-      "speech": response,
-      "displayText": response,
-      "source": "Slack"
+      "fulfillmentText": response
     }.to_json
   end
 end
