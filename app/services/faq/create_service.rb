@@ -8,8 +8,7 @@ module FaqModule
       @hashtags = params["hashtags-original"]
     end
 
-    def call
-      return @company.id.to_s + "question:" + @question + "answer:" + @answer + "hashtags:" + @hashtags
+    def call  
       return 'Hashtag Obrigatória' if @hashtags == nil
       Faq.transaction do
         faq = Faq.create(question: @question, answer: @answer, company: @company)
