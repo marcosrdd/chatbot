@@ -12,5 +12,6 @@ class InterpretService
       else
         "Não compreendi o seu desejo"
       end
+      puts "parametros" + params
     end
   end

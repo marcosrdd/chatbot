@@ -17,7 +17,7 @@ module FaqModule
             faq.hashtags << Hashtag.create(name: hashtag)
           end
         end
-        "Criado com sucesso"
+        "Criado com sucesso. Total de perguntas #{Faq.count}"
       end
     end
   end
