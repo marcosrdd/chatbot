@@ -8,7 +8,6 @@ module FaqModule
       end
   
       def call
-        return "query " + @query
         if @action == "search"
           faqs = Faq.search(@query).where(company: @company)
         elsif @action == "search_by_hashtag"
@@ -32,7 +31,7 @@ module FaqModule
           end
           response += "\n\n"
         end
-        (faqs.count > 0)? response : "Nada encontrado"
+        (faqs.count > 0)? response : "Nada encontrado para " + @query.to_s
       end
     end
   end
