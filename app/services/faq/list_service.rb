@@ -8,6 +8,7 @@ module FaqModule
       end
   
       def call
+        return "query " + @query
         if @action == "search"
           faqs = Faq.search(@query).where(company: @company)
         elsif @action == "search_by_hashtag"
